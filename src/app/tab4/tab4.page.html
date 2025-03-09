@@ -5,13 +5,44 @@
 </ion-header>
 
 <ion-content>
+  <!-- Buscador por cliente -->
+  <ion-item>
+    <ion-label position="floating">Buscar Cliente</ion-label>
+    <ion-input [(ngModel)]="busquedaCliente" (ionInput)="filtrarVentas()"></ion-input>
+  </ion-item>
+
+  <!-- Selector de fecha con calendario en modal -->
+  <ion-datetime-button style="margin-top: 10px; margin-bottom: 10px;" datetime="datetime"></ion-datetime-button>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        id="datetime"
+        presentation="date"
+        locale="es-ES"
+        [formatOptions]="{
+          date: {
+            weekday: 'long',
+            month: 'long',
+            day: '2-digit',
+          },
+        }"
+        (ionChange)="filtrarPorFecha($event)"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+   <!-- Botón para restablecer fecha -->
+   <ion-button *ngIf="mostrarRestablecerFecha" expand="full" color="secondary" (click)="restablecerFecha()">Restablecer Fecha</ion-button>
+
+
   <ion-accordion-group>
-    <ion-accordion *ngFor="let venta of ventas" [value]="venta.id">
+    <ion-accordion *ngFor="let venta of ventasFiltradas" [value]="venta.id">
       <ion-item slot="header">
         <ion-label>
           <h2>{{ venta.clienteNombre }}</h2>
           <p>Total: {{ venta.total | currency:'USD' }}</p>
-          <p>Fecha: {{ venta.fecha | date:'short' }}</p>
+          <p>{{ venta.fecha | date:'fullDate' }} - {{ venta.fecha | date:'shortTime' }}</p>
         </ion-label>
         <ion-button color="danger" fill="clear" (click)="eliminarVenta(venta.id)">
           <ion-icon name="trash"></ion-icon>

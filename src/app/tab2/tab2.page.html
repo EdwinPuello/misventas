@@ -36,7 +36,7 @@
           <ion-row>
             <ion-col size="6" size-md="6" size-lg="4" *ngFor="let producto of productosFiltrados()">
               <ion-card (click)="seleccionarProducto(producto)" button>
-                <img width="150" height="150" [src]="producto.imagen" alt="{{ producto.nombre }}">
+                <img width="150" height="150" [src]="producto.imagen || './assets/noimage.jpg'" alt="{{ producto.nombre }}">
                 <ion-card-header>
                   <ion-card-title>{{ producto.nombre }}</ion-card-title>
                 </ion-card-header>

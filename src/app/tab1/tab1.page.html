@@ -10,7 +10,7 @@
   <ion-list>
     <ion-item *ngFor="let producto of productos">
       <ion-thumbnail slot="start">
-        <img style="border-radius: 30px;" [src]="producto.imagen" alt="{{ producto.nombre }}">
+        <img style="border-radius: 30px;" [src]="producto.imagen || './assets/noimage.jpg'" alt="{{ producto.nombre }}">
       </ion-thumbnail>
       <ion-label>
         <h2>{{ producto.nombre }}</h2>

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { Tab4Page } from './tab4.page';
-
+import { IonDatetime, IonDatetimeButton, IonModal } from '@ionic/angular/standalone';
 import { Tab1PageRoutingModule } from './tab4-routing.module';
 
 @NgModule({
