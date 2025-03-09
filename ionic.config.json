@@ -1,0 +1,7 @@
+{
+  "name": "misVentas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
