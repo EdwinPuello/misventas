@@ -1,17 +1,88 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Ventas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Selección de Cliente -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Seleccionar Cliente</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-select interface="popover" label-placement="floating" label="Seleccionar un cliente" [(ngModel)]="clienteSeleccionado" (ionChange)="seleccionarCliente($event.detail.value)">
+          <ion-select-option *ngFor="let cliente of clientes" [value]="cliente">
+            {{ cliente.nombreCompleto }} - Saldo: {{ cliente.saldo | currency:'USD' }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  
+  <ion-accordion-group [value]="'productos'">
+    <ion-accordion value="productos" >
+      <ion-item slot="header">
+        <ion-label>Seleccionar Productos</ion-label>
+      </ion-item>
+    
+
+      <div slot="content">
+        <ion-searchbar [(ngModel)]="filtro" placeholder="Buscar producto"></ion-searchbar>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" size-md="6" size-lg="4" *ngFor="let producto of productosFiltrados()">
+              <ion-card (click)="seleccionarProducto(producto)" button>
+                <img width="150" height="150" [src]="producto.imagen" alt="{{ producto.nombre }}">
+                <ion-card-header>
+                  <ion-card-title>{{ producto.nombre }}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <p><strong>Precio:</strong> {{ producto.precio | currency:'USD' }}</p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+  
+
+<!-- Resumen de Venta -->
+<ion-card *ngIf="productosSeleccionados.length > 0">
+  <ion-card-header>
+    <ion-card-title>Resumen de Venta</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let producto of productosSeleccionados">
+        <ion-thumbnail slot="start">
+          <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ producto.nombre }}</h2>
+          <p>Precio: {{ producto.precio | currency:'USD' }}</p>
+        </ion-label>
+        <ion-button color="danger" fill="clear" (click)="quitarProducto(producto)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+<ion-item>
+  <ion-label>
+    <strong>Total:</strong>
+  </ion-label>
+  <ion-text>{{ totalVenta | currency:'USD' }}</ion-text>
+
+</ion-item>
+
+<ion-button [disabled]="productosSeleccionados.length === 0" expand="full" color="success" (click)="realizarVenta()">💳 Confirmar Venta</ion-button>
+
+
 </ion-content>

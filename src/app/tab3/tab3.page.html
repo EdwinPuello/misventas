@@ -1,17 +1,49 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Buscador de Clientes -->
+  <ion-searchbar placeholder="Buscar cliente..." (ionInput)="filtrarClientes($event)"></ion-searchbar>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <!-- Botón para Agregar Cliente -->
+  <ion-button expand="full" (click)="agregarCliente()">
+    <ion-icon name="person-add-outline"></ion-icon> Agregar Cliente
+  </ion-button>
+
+  <!-- Lista de Clientes -->
+  <ion-list>
+    <ion-item *ngFor="let cliente of clientesFiltrados">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <!-- Columna para Nombre -->
+          <ion-col size="12" size-md="6">
+            <ion-label>
+              <h2>{{ cliente.nombreCompleto }}</h2>
+            </ion-label>
+          </ion-col>
+
+          <!-- Columna para Saldo -->
+          <ion-col size="12" size-md="3">
+            <p><strong>Saldo:</strong> {{ cliente.saldo | currency:'USD' }}</p>
+          </ion-col>
+
+          <!-- Columna para los botones -->
+          <ion-col size="12" size-md="3" class="ion-text-right">
+            <ion-button fill="solid" color="success" (click)="confirmarPagarTodo(cliente)">
+              <ion-icon name="cash-outline" slot="start"></ion-icon> Pagar Todo
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="editarCliente(cliente)">
+              <ion-icon name="create-outline" slot="start"></ion-icon> Editar
+            </ion-button>
+            <ion-button fill="solid" color="danger" (click)="eliminarCliente(cliente.id)">
+              <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 </ion-content>

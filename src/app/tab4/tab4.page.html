@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Historial de Ventas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let venta of ventas" [value]="venta.id">
+      <ion-item slot="header">
+        <ion-label>
+          <h2>{{ venta.clienteNombre }}</h2>
+          <p>Total: {{ venta.total | currency:'USD' }}</p>
+          <p>Fecha: {{ venta.fecha | date:'short' }}</p>
+        </ion-label>
+        <ion-button color="danger" fill="clear" (click)="eliminarVenta(venta.id)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div slot="content">
+        <ion-list>
+          <ion-item *ngFor="let producto of venta.productos">
+            <ion-thumbnail slot="start">
+              <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+            </ion-thumbnail>
+            <ion-label>
+              <h3>{{ producto.nombre }}</h3>
+              <p>Precio: {{ producto.precio | currency:'USD' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

@@ -1,17 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title>Productos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-button expand="full" (click)="agregarProducto()">Agregar Producto</ion-button>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list>
+    <ion-item *ngFor="let producto of productos">
+      <ion-thumbnail slot="start">
+        <img style="border-radius: 30px;" [src]="producto.imagen" alt="{{ producto.nombre }}">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ producto.nombre }}</h2>
+        <p>Precio: {{ producto.precio | currency:'USD' }}</p>
+      </ion-label>
+      <ion-button fill="outline" (click)="editarProducto(producto)">Editar</ion-button>
+      <ion-button color="danger" fill="outline" (click)="eliminarProducto(producto.id)">Eliminar</ion-button>
+    </ion-item>    
+  </ion-list>
 </ion-content>
