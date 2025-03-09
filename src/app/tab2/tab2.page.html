@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header style="padding-top: 35px;">
   <ion-toolbar>
     <ion-title>Ventas</ion-title>
   </ion-toolbar>
@@ -14,7 +14,7 @@
       <ion-item>
         <ion-select interface="popover" label-placement="floating" label="Seleccionar un cliente" [(ngModel)]="clienteSeleccionado" (ionChange)="seleccionarCliente($event.detail.value)">
           <ion-select-option *ngFor="let cliente of clientes" [value]="cliente">
-            {{ cliente.nombreCompleto }} - Saldo: {{ cliente.saldo | currency:'USD' }}
+            {{ cliente.nombreCompleto }} - Saldo: {{ cliente.saldo | currency:'COP' }}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -36,12 +36,12 @@
           <ion-row>
             <ion-col size="6" size-md="6" size-lg="4" *ngFor="let producto of productosFiltrados()">
               <ion-card (click)="seleccionarProducto(producto)" button>
-                <img width="150" height="150" [src]="producto.imagen || './assets/noimage.jpg'" alt="{{ producto.nombre }}">
+                <img width="120" style="margin: auto; display: block;" height="150" [src]="producto.imagen || './assets/noimage.jpg'" alt="{{ producto.nombre }}">
                 <ion-card-header>
                   <ion-card-title>{{ producto.nombre }}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                  <p><strong>Precio:</strong> {{ producto.precio | currency:'USD' }}</p>
+                  <p><strong>Precio:</strong> {{ producto.precio | currency:'COP' }}</p>
                 </ion-card-content>
               </ion-card>
             </ion-col>
@@ -65,7 +65,7 @@
         </ion-thumbnail>
         <ion-label>
           <h2>{{ producto.nombre }}</h2>
-          <p>Precio: {{ producto.precio | currency:'USD' }}</p>
+          <p>Precio: {{ producto.precio | currency:'COP' }}</p>
         </ion-label>
         <ion-button color="danger" fill="clear" (click)="quitarProducto(producto)">
           <ion-icon name="trash-outline"></ion-icon>
@@ -78,7 +78,7 @@
   <ion-label>
     <strong>Total:</strong>
   </ion-label>
-  <ion-text>{{ totalVenta | currency:'USD' }}</ion-text>
+  <ion-text>{{ totalVenta | currency:'COP' }}</ion-text>
 
 </ion-item>
 

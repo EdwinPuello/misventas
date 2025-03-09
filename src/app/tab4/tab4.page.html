@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header style="padding-top: 35px;">
   <ion-toolbar>
     <ion-title>Historial de Ventas</ion-title>
   </ion-toolbar>
@@ -32,16 +32,22 @@
     </ng-template>
   </ion-modal>
 
-   <!-- Botón para restablecer fecha -->
-   <ion-button *ngIf="mostrarRestablecerFecha" expand="full" color="secondary" (click)="restablecerFecha()">Restablecer Fecha</ion-button>
+  <!-- Botón para restablecer fecha -->
+  <ion-button *ngIf="mostrarRestablecerFecha" expand="full" color="secondary" (click)="restablecerFecha()">Restablecer Fecha</ion-button>
 
+  <!-- Mostrar el total de las ventas del cliente -->
+  <ion-item *ngIf="totalVentasCliente > 0">
+    <ion-label>
+      <h3>Total de ventas del cliente: {{ totalVentasCliente | currency:'COP' }}</h3>
+    </ion-label>
+  </ion-item>
 
   <ion-accordion-group>
     <ion-accordion *ngFor="let venta of ventasFiltradas" [value]="venta.id">
       <ion-item slot="header">
         <ion-label>
           <h2>{{ venta.clienteNombre }}</h2>
-          <p>Total: {{ venta.total | currency:'USD' }}</p>
+          <p>Total: {{ venta.total | currency:'COP' }}</p>
           <p>{{ venta.fecha | date:'fullDate' }} - {{ venta.fecha | date:'shortTime' }}</p>
         </ion-label>
         <ion-button color="danger" fill="clear" (click)="eliminarVenta(venta.id)">
